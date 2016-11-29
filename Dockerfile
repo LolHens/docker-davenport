@@ -8,10 +8,11 @@ ENV DAVENPORT_FILE $DAVENPORT_NAME.zip
 ENV DAVENPORT_URL http://downloads.sourceforge.net/project/davenport/davenport/$DAVENPORT_VERSION/$DAVENPORT_FILE
 
 
+RUN rm "/usr/local/bin/appfolders"
+ADD ["bin/appfolders", "/usr/local/bin/"]
+RUN chmod +x "/usr/local/bin/appfolders"
+
 RUN cd "/tmp" \
- && rm "/usr/local/bin/appfolders" \
- && curl -Lo "/usr/local/bin/appfolders" "https://raw.githubusercontent.com/LolHens/docker-tools/master/bin/appfolders" \
- && chmod +x "/usr/local/bin/appfolders" \
  && curl -LO "$DAVENPORT_URL" \
  && unzip "$DAVENPORT_FILE" \
  && mv "$DAVENPORT_NAME" "/opt/davenport/" \
